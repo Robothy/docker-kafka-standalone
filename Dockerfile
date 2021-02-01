@@ -21,4 +21,4 @@ EXPOSE 9092
 
 WORKDIR ${kafka_home}/bin
 
-CMD ["sh", "startup.sh"]
+CMD startup.sh ; sleep infinity
