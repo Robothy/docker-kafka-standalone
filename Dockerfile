@@ -5,7 +5,7 @@ ARG kafka_version=2.6.0
 ARG kafka_home=/opt/kafka
 
 ENV KAFKA_HOME=${kafka_home} \
-    SCALA_VERSION=${scala_version} \ 
+    SCALA_VERSION=${scala_version} \
 	KAFKA_VERSION=${kafka_version}
 
 RUN wget http://archive.apache.org/dist/kafka/${kafka_version}/kafka_${scala_version}-${kafka_version}.tgz \
@@ -14,11 +14,11 @@ RUN wget http://archive.apache.org/dist/kafka/${kafka_version}/kafka_${scala_ver
  && rm kafka_${scala_version}-${kafka_version}.tgz \
  && echo "advertised.listeners=PLAINTEXT://127.0.0.1:9092" >> ${kafka_home}/config/server.properties \
  && wget https://github.com/Robothy/docker-kafka-standalone/raw/master/startup.sh \
+ && chmod +x startup.sh \
  && mv startup.sh ${kafka_home}/bin
 
-
-EXPOSE 9092
+EXPOSE 9092 2181
 
 WORKDIR ${kafka_home}/bin
 
-CMD startup.sh ; sleep infinity
+CMD ./startup.sh ; sleep infinity
